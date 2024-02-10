@@ -67,7 +67,7 @@ void snakePos(std::vector<sf::RectangleShape> &body, Direction currentDirection,
             break;
     }
     body[0].move(movement);
-    for(int i = body.size() - 1; i > 0; i--){
+    for (int i = body.size() - 1; i > 0; --i) {
         body[i].setPosition(body[i - 1].getPosition());
     }
 }
@@ -95,13 +95,6 @@ int main() {
     std::uniform_real_distribution<float> yDist(0, window.getSize().y - 30);
 
 
-    for (int i = 1; i < 3; i++) {
-        body.push_back(sf::RectangleShape(sf::Vector2f(30.f, 30.f)));
-//        body[i].setPosition(body[i - 1].getPosition() + sf::Vector2f(40.f, 0.f));
-        body[i].setOutlineColor(sf::Color::Red);
-        body[i].setOutlineThickness(2);
-    }
-
     while(window.isOpen())
     {
         sf::Event event;
@@ -116,7 +109,10 @@ int main() {
         snakePos(body, direction, speed);
         if(body[0].getGlobalBounds().intersects(food.getGlobalBounds())){
             food.setPosition(xDist(gen), yDist(gen));
-            body.push_back(sf::RectangleShape(sf::Vector2f(30.f, 30.f)));
+            sf::RectangleShape rect(sf::Vector2f(30.f, 30.f));
+            rect.setFillColor(sf::Color::Yellow);
+            body.push_back(sf::RectangleShape(sf::Vector2f(30.f , 30.f)));
+
         }
 
         window.clear();
